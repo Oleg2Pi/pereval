@@ -79,3 +79,18 @@ class PerevalSerializer(WritableNestedModelSerializer):
                 raise serializers.ValidationError()
 
         return value
+
+
+class PerevalListSerializer(serializers.ModelSerializer):
+    images = ImageSerializer(many=True)
+    add_time = serializers.DateTimeField(format='%d-%m-%Y %H:%M:%S', read_only=True)
+    user = UserSerializer()
+    coord = CoordinateSerializer()
+    level = LevelSerializer()
+
+    class Meta:
+        model = PerevalModel
+        fields = [
+            'id', 'status', 'beauty_title', 'title', 'other_title', 'connect',
+            'add_time', 'user', 'coord', 'level', 'images'
+        ]
